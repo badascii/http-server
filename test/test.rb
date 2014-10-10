@@ -1,22 +1,16 @@
 require 'minitest/autorun'
 require 'minitest/spec'
-require 'capybara'
-require_relative '../lib/http'
+require 'net/http'
 
-Capybara.app = HTTP
+class TestHTTP < MiniTest::Unit::TestCase
 
-describe HTTP do
-  include Capybara::DSL
+  def setup
+    @uri = URI('http://localhost:2000/')
+  end
 
-  describe 'server' do
-    before do
-      Capybara.reset_sessions!
-      visit '/'
-    end
-
-    it 'should send a successful response' do
-      page.status_code.must_equal(200)
-    end
+  def test_hello_world
+    response = Net::HTTP.get_response(@uri)
+    assert(response.body.include?("Hello World!"))
   end
 
 end
