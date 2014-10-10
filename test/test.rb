@@ -13,4 +13,9 @@ class TestHTTP < MiniTest::Unit::TestCase
     assert(response.body.include?("Hello World!"))
   end
 
+  def test_response_code
+    response = Net::HTTP.get_response(@uri)
+    assert_equal(response.code, '200')
+  end
+
 end
