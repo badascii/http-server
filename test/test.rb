@@ -18,4 +18,9 @@ class TestHTTP < MiniTest::Unit::TestCase
     assert_equal(response.code, '200')
   end
 
+  def test_index
+    response = Net::HTTP.get_response(@uri + 'index.html')
+    assert_equal(response.code, '200')
+  end
+
 end
