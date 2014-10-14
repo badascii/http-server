@@ -15,7 +15,7 @@ class TestHTTP < MiniTest::Unit::TestCase
 
   def test_hello_world
     response = Net::HTTP.get_response(@uri + '/index.html')
-    assert(response.body.include?('Hello World!'))
+    assert(response.body.include?('Hello World'))
   end
 
   def test_index
