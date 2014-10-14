@@ -23,9 +23,9 @@ class TestHTTP < MiniTest::Unit::TestCase
     assert_equal(response.code, '200')
   end
 
-  # def test_file_outside_public
-  #   response = Net::HTTP.get_response(@uri + 'inaccessible.html')
-  #   assert_equal(response.code, '404')
-  # end
+  def test_file_outside_public
+    response = Net::HTTP.get_response(@uri + 'inaccessible.html')
+    assert_equal(response.code, '404')
+  end
 
 end
