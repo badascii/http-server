@@ -18,15 +18,9 @@ class TestHTTP < MiniTest::Unit::TestCase
     assert(response.body.include?('Hello World!'))
   end
 
-  def test_response_code
-    response = Net::HTTP.get_response(@uri)
-    assert_equal(response.code, '200')
-  end
-
   def test_index
     response = Net::HTTP.get_response(@uri + 'index.html')
     assert_equal(response.code, '200')
-    assert_equal(@uri.path, 'index.html')
   end
 
   # def test_file_outside_public
