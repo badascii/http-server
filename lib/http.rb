@@ -36,31 +36,31 @@ loop do
 
   if File.exist?(path) && !File.directory?(path)
     File.open(path, 'rb') do |file|
-      client.print('HTTP/1.1 200 OK\r\n' +
-                   'Content-Type: #{content_type(file)}\r\n' +
-                   'Content-Length: #{file.size}\r\n' +
-                   'Connection: close\r\n')
+      client.print("HTTP/1.1 200 OK\r\n" +
+                   "Content-Type: #{content_type(file)}\r\n" +
+                   "Content-Length: #{file.size}\r\n" +
+                   "Connection: close\r\n")
 
-      client.print('\r\n')
+      client.print("\r\n")
 
       # write the contents of the file to the socket
-      IO.copy_stream(file, socket)
+      IO.copy_stream(file, client)
     end
 
   else
-    message = 'File not found\n'
+    message = "File not found\n"
 
     # respond with a 404 error code to indicate the file does not exist
-    client.print('HTTP/1.1 404 Not Found\r\n' +
-                 'Content-Type: text/plain\r\n' +
-                 'Content-Length: #{message.size}\r\n' +
-                 'Connection: close\r\n')
+    client.print("HTTP/1.1 404 Not Found\r\n" +
+                 "Content-Type: text/plain\r\n" +
+                 "Content-Length: #{message.size}\r\n" +
+                 "Connection: close\r\n")
 
-    socket.print('\r\n')
+    client.print("\r\n")
 
-    socket.print(message)
+    client.print(message)
   end
 
-  socket.close
+  client.close
 
 end
