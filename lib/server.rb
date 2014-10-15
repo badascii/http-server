@@ -19,4 +19,12 @@ class Server
     CONTENT_TYPE_MAPPING.fetch(ext, DEFAULT_CONTENT_TYPE)
   end
 
+  def requested_file(request_line)
+    request_uri  = request_line.split(' ')[1]
+    path         = URI.unescape(URI(request_uri).path)
+
+  File.join(ROOT_URI, path)
+end
+
+
 end
