@@ -48,7 +48,7 @@ class Server
       puts "Got request for: #{path}"
 
       if valid_file?(path)
-        serve_file
+        serve_file(path, client)
       else
         file_not_found(client)
       end
