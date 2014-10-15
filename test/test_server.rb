@@ -13,8 +13,8 @@ class TestServer < MiniTest::Test
     assert_equal(@server.class, Server)
   end
 
-  def test_create_tcp
-    tcp = @server.create_tcp
+  def test_tcp_server
+    tcp = @server.tcp_server
     assert_equal(tcp.class, TCPServer)
   end
 

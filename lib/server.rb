@@ -47,7 +47,7 @@ class Server
 
       puts "Got request for: #{path}"
 
-      if File.exist?(path) && !File.directory?(path)
+      if valid_file?(path)
         File.open(path, 'rb') do |file|
           client.print("HTTP/1.1 200 OK\r\n" +
                        "Content-Type: #{content_type(file)}\r\n" +
@@ -59,20 +59,27 @@ class Server
           IO.copy_stream(file, client)
         end
       else
-        message = "File not found\n"
-
-        client.print("HTTP/1.1 404 Not Found\r\n" +
-                     "Content-Type: text/plain\r\n" +
-                     "Content-Length: #{message.size}\r\n" +
-                     "Connection: close\r\n")
-
-        client.print("\r\n")
-
-        client.print(message)
+        file_not_found(client)
       end
-        client.close
-
+      client.close
     end
+  end
+
+  def valid_file?(path)
+    File.exist?(path) && !File.directory?(path)
+  end
+
+  def file_not_found(client)
+    message = "File not found\n"
+
+    client.print("HTTP/1.1 404 Not Found\r\n" +
+                 "Content-Type: text/plain\r\n" +
+                 "Content-Length: #{message.size}\r\n" +
+                 "Connection: close\r\n")
+
+    client.print("\r\n")
+
+    client.print(message)
   end
 
 end
