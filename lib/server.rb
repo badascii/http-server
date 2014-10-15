@@ -1,5 +1,7 @@
 class Server
 
+  attr_accessor :host, :server
+
   CONTENT_TYPE_MAPPING = {
   'html' => 'text/html',
   'txt'  => 'text/plain',
@@ -23,8 +25,12 @@ class Server
     request_uri  = request_line.split(' ')[1]
     path         = URI.unescape(URI(request_uri).path)
 
-  File.join(ROOT_URI, path)
-end
+    File.join(ROOT_URI, path)
+  end
+
+  def create_tcp
+    TCPServer.new(host, server)
+  end
 
 
 end
