@@ -33,14 +33,14 @@ class Server
     File.join(ROOT_URI, path)
   end
 
-  def create_tcp
+  def tcp_server
     TCPServer.new(host, port)
   end
 
   def run
     puts 'Starting server...'
     loop do
-      client       = create_tcp.accept
+      client       = tcp_server.accept
       request_line = client.gets
 
       path = requested_file(request_line)

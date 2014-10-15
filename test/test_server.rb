@@ -3,7 +3,7 @@ require 'minitest/spec'
 require 'net/http'
 require_relative '../lib/server'
 
-class TestServer < MiniTest::Unit::TestCase
+class TestServer < MiniTest::Test
 
   def setup
     @server = Server.new('localhost', 2000)

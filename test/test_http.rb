@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/spec'
 require 'net/http'
 
-class TestHTTP < MiniTest::Unit::TestCase
+class TestHTTP < MiniTest::Test
 
   def setup
     @uri = URI('http://localhost:2000/')
