@@ -48,16 +48,7 @@ class Server
       puts "Got request for: #{path}"
 
       if valid_file?(path)
-        File.open(path, 'rb') do |file|
-          client.print("HTTP/1.1 200 OK\r\n" +
-                       "Content-Type: #{content_type(file)}\r\n" +
-                       "Content-Length: #{file.size}\r\n" +
-                       "Connection: close\r\n")
-
-          client.print("\r\n")
-
-          IO.copy_stream(file, client)
-        end
+        serve_file
       else
         file_not_found(client)
       end
@@ -67,6 +58,19 @@ class Server
 
   def valid_file?(path)
     File.exist?(path) && !File.directory?(path)
+  end
+
+  def serve_file(path, client)
+    File.open(path, 'rb') do |file|
+      client.print("HTTP/1.1 200 OK\r\n" +
+                   "Content-Type: #{content_type(file)}\r\n" +
+                   "Content-Length: #{file.size}\r\n" +
+                   "Connection: close\r\n")
+
+      client.print("\r\n")
+
+      IO.copy_stream(file, client)
+    end
   end
 
   def file_not_found(client)
