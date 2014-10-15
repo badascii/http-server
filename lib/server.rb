@@ -1,6 +1,11 @@
+require 'socket'
+require 'uri'
+
 class Server
 
-  attr_accessor :host, :server
+  attr_reader :host, :port
+
+  ROOT_URI = './public'
 
   CONTENT_TYPE_MAPPING = {
   'html' => 'text/html',
@@ -29,17 +34,18 @@ class Server
   end
 
   def create_tcp
-    TCPServer.new(host, server)
+    TCPServer.new(host, port)
   end
 
-  def run(server)
+  def run
+    puts 'Starting server...'
     loop do
-      client       = server.accept
+      client       = create_tcp.accept
       request_line = client.gets
 
-      STDERR.puts(request_line)
-
       path = requested_file(request_line)
+
+      puts "Got request for: #{path}"
 
       if File.exist?(path) && !File.directory?(path)
         File.open(path, 'rb') do |file|

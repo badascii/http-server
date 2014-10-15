@@ -19,7 +19,21 @@ class TestServer < MiniTest::Unit::TestCase
   end
 
   def test_default_content_type
-    default_content_type = @server.content_type('asdf.blah')
+    default_content_type = @server.content_type('file.blah')
     assert_equal(default_content_type, 'application/octet-stream')
+  end
+
+  def test_supported_file_types
+    html = @server.content_type('a.html')
+    assert_equal(html, 'text/html')
+
+    txt  = @server.content_type('b.txt')
+    assert_equal(txt, 'text/plain')
+
+    png  = @server.content_type('c.png')
+    assert_equal(png, 'image/png')
+
+    jpg  = @server.content_type('d.jpg')
+    assert_equal(jpg, 'image/jpeg')
   end
 end
