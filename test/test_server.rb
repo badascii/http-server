@@ -17,4 +17,9 @@ class TestServer < MiniTest::Unit::TestCase
     tcp = @server.create_tcp
     assert_equal(tcp.class, TCPServer)
   end
+
+  def test_default_content_type
+    default_content_type = @server.content_type('asdf.blah')
+    assert_equal(default_content_type, 'application/octet-stream')
+  end
 end
