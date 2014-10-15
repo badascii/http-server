@@ -43,14 +43,12 @@ loop do
 
       client.print("\r\n")
 
-      # write the contents of the file to the socket
       IO.copy_stream(file, client)
     end
 
   else
     message = "File not found\n"
 
-    # respond with a 404 error code to indicate the file does not exist
     client.print("HTTP/1.1 404 Not Found\r\n" +
                  "Content-Type: text/plain\r\n" +
                  "Content-Length: #{message.size}\r\n" +

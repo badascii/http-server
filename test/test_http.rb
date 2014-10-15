@@ -29,4 +29,8 @@ class TestHTTP < MiniTest::Unit::TestCase
     assert_equal(response.code, '404')
   end
 
+  def test_client_requests_directory
+    response = Net::HTTP.get_response('/../../../../etc/passwd')
+    assert_equal(response.code, '404')
+  end
 end
