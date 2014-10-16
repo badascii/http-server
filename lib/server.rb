@@ -62,8 +62,8 @@ class Server
 
   def serve_file(path, client)
     File.open(path, 'rb') do |file|
-      header = build_header
-      client.print(header(200, content_type(file), file.size))
+      header = build_header(200, content_type(file), file.size)
+      client.print(header)
       client.print("\r\n")
 
       IO.copy_stream(file, client)
@@ -88,5 +88,14 @@ class Server
     "Content-Type: #{type}\r\n" +
     "Content-Length: #{length}\r\n" +
     "Connection: close\r\n"
+  end
+
+  def status_message(code)
+    case code
+    when 200
+      'OK'
+    when 404
+      'Not Found'
+    end
   end
 end
