@@ -38,8 +38,8 @@ class TestServer < MiniTest::Test
   end
 
   def test_header
-    code = 200
-    type = Server::DEFAULT_CONTENT_TYPE
+    code   = 200
+    type   = Server::DEFAULT_CONTENT_TYPE
     length = 10
     header = @server.build_header(code, type, length)
     assert_equal(header, "HTTP/1.1 200 OK\r\n" +
@@ -48,4 +48,8 @@ class TestServer < MiniTest::Test
                          "Connection: close\r\n")
   end
 
+  def test_status_message
+    message  = @server.status_message(200)
+    assert_equal(message, 'OK')
+  end
 end
