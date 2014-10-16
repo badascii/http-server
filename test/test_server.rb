@@ -36,4 +36,16 @@ class TestServer < MiniTest::Test
     jpg  = @server.content_type('d.jpg')
     assert_equal(jpg, 'image/jpeg')
   end
+
+  def test_header
+    code = 200
+    type = Server.DEFAULT_CONTENT_TYPE
+    length = 10
+    header = @server.print_header(code, type, length)
+    assert_equal(header, "HTTP/1.1 200 OK\r\n" +
+                         "Content-Type: application/octet-stream\r\n" +
+                         "Content-Length: 10\r\n" +
+                         "Connection: close\r\n")
+  end
+
 end
