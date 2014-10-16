@@ -39,9 +39,9 @@ class TestServer < MiniTest::Test
 
   def test_header
     code = 200
-    type = Server.DEFAULT_CONTENT_TYPE
+    type = Server::DEFAULT_CONTENT_TYPE
     length = 10
-    header = @server.print_header(code, type, length)
+    header = @server.build_header(code, type, length)
     assert_equal(header, "HTTP/1.1 200 OK\r\n" +
                          "Content-Type: application/octet-stream\r\n" +
                          "Content-Length: 10\r\n" +

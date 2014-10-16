@@ -62,11 +62,8 @@ class Server
 
   def serve_file(path, client)
     File.open(path, 'rb') do |file|
-      client.print("HTTP/1.1 200 OK\r\n" +
-                   "Content-Type: #{content_type(file)}\r\n" +
-                   "Content-Length: #{file.size}\r\n" +
-                   "Connection: close\r\n")
-
+      header = build_header
+      client.print(header(200, content_type(file), file.size))
       client.print("\r\n")
 
       IO.copy_stream(file, client)
@@ -86,7 +83,7 @@ class Server
     client.print(message)
   end
 
-  def header(code, type, length)
+  def build_header(code, type, length)
     "HTTP/1.1 #{code}\r\n" +
     "Content-Type: #{type}\r\n" +
     "Content-Length: #{length}\r\n" +
