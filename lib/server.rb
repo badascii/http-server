@@ -86,4 +86,10 @@ class Server
     client.print(message)
   end
 
+  def header(code, type, length)
+    "HTTP/1.1 #{code}\r\n" +
+    "Content-Type: #{type}\r\n" +
+    "Content-Length: #{length}\r\n" +
+    "Connection: close\r\n"
+  end
 end
