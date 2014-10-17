@@ -6,16 +6,11 @@ require_relative '../lib/server'
 class TestServer < MiniTest::Test
 
   def setup
-    @server = Server.new('localhost', 2000)
+    @server = Server.new(2000, 'localhost')
   end
 
   def test_initialize
     assert_equal(@server.class, Server)
-  end
-
-  def test_tcp_server
-    tcp = @server.tcp_server
-    assert_equal(tcp.class, TCPServer)
   end
 
   def test_default_content_type

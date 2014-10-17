@@ -1,7 +1,8 @@
 require 'socket'
 require 'uri'
+require 'gserver'
 
-class Server
+class Server < GServer
 
   attr_reader :host, :port
 
@@ -17,9 +18,8 @@ class Server
   STATUS_MESSAGE = {200 => 'OK',
                     404 => 'Not Found'}
 
-  def initialize(host, port=2000)
-    @host  = host
-    @port  = port
+  def initialize(port=2000, *args)
+    super(port, *args)
   end
 
   def content_type(path)
@@ -34,21 +34,13 @@ class Server
     File.join(ROOT_URI, path)
   end
 
-  def tcp_server
-    TCPServer.new(host, port)
-  end
-
-  def run
-    puts 'Starting server...'
+  def serve(io)
     loop do
-      client       = tcp_server.accept
-      request_line = client.gets
-
-      path = requested_file(request_line)
+      line = io.readline
+      path = requested_file(line)
 
       puts "Got request for: #{path}"
-      check_file(path, client)
-      client.close
+      check_file(path, io)
     end
   end
 

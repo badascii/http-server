@@ -1,3 +1,3 @@
 server = Server.new
 
-server.run
+server.start

@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 require_relative '../lib/server'
 
-server = Server.new('localhost', 2000)
+server = Server.new(2000, 'localhost')
 
-server.run
+puts 'Starting server...'
+
+server.start
+
+server.join
+
+puts "Server has been terminated"
