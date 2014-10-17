@@ -4,6 +4,8 @@ require 'gserver'
 
 class Server < GServer
 
+  attr_reader :port, :host
+
   ROOT_URI = './public'
 
   CONTENT_TYPES = {'html' => 'text/html',
@@ -26,7 +28,8 @@ class Server < GServer
   end
 
   def requested_file(line)
-    request_uri  = request_line.split(' ')[1]
+    puts line
+    request_uri  = line.split(' ')[1]
     path         = URI.unescape(URI(request_uri).path)
 
     File.join(ROOT_URI, path)
@@ -38,7 +41,7 @@ class Server < GServer
       path = requested_file(line)
 
       puts "Got request for: #{path}"
-      validate_file(path, io)
+      validate_request(path, io)
     end
   end
 

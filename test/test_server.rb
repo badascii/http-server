@@ -35,6 +35,11 @@ class TestServer < MiniTest::Test
     assert_equal(jpg, 'image/jpeg')
   end
 
+  def test_requested_file
+    file = @server.requested_file('GET /index.html HTTP/1.1')
+    assert_equal(file, './public/index.html')
+  end
+
   def test_200_header
     code   = 200
     type   = Server::DEFAULT_CONTENT_TYPE

@@ -9,4 +9,4 @@ server.start
 
 server.join
 
-puts "Server has been terminated"
+puts 'Server has been terminated'
