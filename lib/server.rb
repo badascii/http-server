@@ -3,7 +3,7 @@ require 'uri'
 
 class Server
 
-  attr_reader :host, :port
+  attr_reader :host, :port, :client
 
   ROOT_URI = './public'
 
@@ -17,8 +17,9 @@ class Server
   DEFAULT_CONTENT_TYPE = 'application/octet-stream'
 
   def initialize(host, port=2000)
-    @host = host
-    @port = port
+    @host  = host
+    @port  = port
+    @client = tcp_server.accept
   end
 
   def content_type(path)
@@ -84,7 +85,7 @@ class Server
   end
 
   def build_header(code, type, length)
-    "HTTP/1.1 #{code}\r\n" +
+    "HTTP/1.1 #{code} #{status_message(code)}\r\n" +
     "Content-Type: #{type}\r\n" +
     "Content-Length: #{length}\r\n" +
     "Connection: close\r\n"
