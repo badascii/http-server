@@ -85,18 +85,10 @@ class Server
   end
 
   def build_header(code, type, length)
-    "HTTP/1.1 #{code} #{status_message(code)}\r\n" +
+    "HTTP/1.1 #{code} #{STATUS_MESSAGE[code]}\r\n" +
     "Content-Type: #{type}\r\n" +
     "Content-Length: #{length}\r\n" +
     "Connection: close\r\n"
   end
 
-  def status_message(code)
-    case code
-    when 200
-      'OK'
-    when 404
-      'Not Found'
-    end
-  end
 end
