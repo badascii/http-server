@@ -3,9 +3,11 @@ require_relative '../lib/server'
 
 port = ARGV[0] || 2000
 
-server = Server.new(port, 'localhost')
+host = ARGV[1] || 'localhost'
 
-puts "Starting server on port #{port}..."
+server = Server.new(port, host)
+
+puts "Starting server on port #{port} on #{host}..."
 
 server.start
 
