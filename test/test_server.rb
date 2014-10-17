@@ -36,7 +36,8 @@ class TestServer < MiniTest::Test
   end
 
   def test_requested_file
-    file = @server.requested_file('GET /index.html HTTP/1.1')
+    line = 'GET /index.html HTTP/1.1'
+    file = @server.requested_file(line)
     assert_equal(file, './public/index.html')
   end
 
