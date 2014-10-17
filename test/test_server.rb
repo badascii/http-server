@@ -51,6 +51,8 @@ class TestServer < MiniTest::Test
   def test_status_message
     message  = @server.status_message(200)
     assert_equal(message, 'OK')
+    assert_equal(Server::STATUS_MESSAGE[200], 'OK')
+    assert_equal(Server::STATUS_MESSAGE[404], 'Not Found')
   end
 
 end

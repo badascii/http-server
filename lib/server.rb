@@ -7,14 +7,15 @@ class Server
 
   ROOT_URI = './public'
 
-  CONTENT_TYPE_MAPPING = {
-  'html' => 'text/html',
-  'txt'  => 'text/plain',
-  'png'  => 'image/png',
-  'jpg'  => 'image/jpeg'
-  }
+  CONTENT_TYPE_MAPPING = {'html' => 'text/html',
+                          'txt'  => 'text/plain',
+                          'png'  => 'image/png',
+                          'jpg'  => 'image/jpeg'}
 
   DEFAULT_CONTENT_TYPE = 'application/octet-stream'
+
+  STATUS_MESSAGE = {200 => 'OK',
+                    404 => 'Not Found'}
 
   def initialize(host, port=2000)
     @host  = host
