@@ -41,6 +41,12 @@ class TestServer < MiniTest::Test
     assert_equal(file, './public/index.html')
   end
 
+
+  def test_valid_file
+    path = './public/index.html'
+    assert_equal(true, @server.valid_file?(path))
+  end
+
   def test_200_header
     code   = 200
     type   = Server::DEFAULT_CONTENT_TYPE

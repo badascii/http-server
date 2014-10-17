@@ -28,7 +28,6 @@ class Server < GServer
   end
 
   def requested_file(line)
-    puts line
     request_uri  = line.split(' ')[1]
     path         = URI.unescape(URI(request_uri).path)
 
@@ -40,6 +39,7 @@ class Server < GServer
       line = io.readline
       path = requested_file(line)
 
+      puts line
       puts "Got request for: #{path}"
       validate_request(path, io)
     end
