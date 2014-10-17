@@ -14,8 +14,8 @@ class TestServer < MiniTest::Test
   end
 
   def test_status_messages
-    assert_equal(Server::STATUS_MESSAGE[200], 'OK')
-    assert_equal(Server::STATUS_MESSAGE[404], 'Not Found')
+    assert_equal(Server::STATUS_MESSAGES[200], 'OK')
+    assert_equal(Server::STATUS_MESSAGES[404], 'Not Found')
   end
 
   def test_default_content_type
@@ -48,7 +48,7 @@ class TestServer < MiniTest::Test
 
   def test_404_header
     code   = 404
-    type   = CONTENT_TYPES['txt']
+    type   = Server::CONTENT_TYPES['txt']
     length = 10
     header = @server.build_header(code, type, length)
     assert_equal(header, "HTTP/1.1 404 Not Found\r\n" +
