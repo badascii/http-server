@@ -13,5 +13,3 @@ server.start
 
 server.join
 
-puts 'Server has been terminated'
-
