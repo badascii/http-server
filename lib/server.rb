@@ -4,8 +4,6 @@ require 'gserver'
 
 class Server < GServer
 
-  attr_reader :port, :host
-
   ROOT_URI = './public'
 
   CONTENT_TYPES = {'html' => 'text/html',
@@ -16,7 +14,7 @@ class Server < GServer
   DEFAULT_CONTENT_TYPE = 'application/octet-stream'
 
   STATUS_MESSAGES = {200 => 'OK',
-                    404 => 'Not Found'}
+                     404 => 'Not Found'}
 
   def initialize(port=2000, *args)
     super(port, *args)

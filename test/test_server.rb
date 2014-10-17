@@ -23,7 +23,7 @@ class TestServer < MiniTest::Test
     assert_equal(default_content_type, 'application/octet-stream')
   end
 
-  def test_supported_file_types
+  def test_supported_content_types
     html = @server.content_type('a.html')
     txt  = @server.content_type('b.txt')
     png  = @server.content_type('c.png')
@@ -40,7 +40,6 @@ class TestServer < MiniTest::Test
     file = @server.requested_file(line)
     assert_equal(file, './public/index.html')
   end
-
 
   def test_valid_file
     path = './public/index.html'
@@ -68,6 +67,5 @@ class TestServer < MiniTest::Test
                          "Content-Length: 10\r\n" +
                          "Connection: close\r\n")
   end
-
 
 end
