@@ -47,13 +47,16 @@ class Server
       path = requested_file(request_line)
 
       puts "Got request for: #{path}"
-
-      if valid_file?(path)
-        serve_file(path, client)
-      else
-        file_not_found(client)
-      end
+      check_file(path, client)
       client.close
+    end
+  end
+
+  def check_file(path, client)
+    if valid_file?(path)
+      serve_file(path, client)
+    else
+      file_not_found(client)
     end
   end
 
