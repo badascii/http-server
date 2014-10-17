@@ -13,6 +13,11 @@ class TestServer < MiniTest::Test
     assert_equal(@server.class, Server)
   end
 
+  def test_status_messages
+    assert_equal(Server::STATUS_MESSAGE[200], 'OK')
+    assert_equal(Server::STATUS_MESSAGE[404], 'Not Found')
+  end
+
   def test_default_content_type
     default_content_type = @server.content_type('file.blah')
     assert_equal(default_content_type, 'application/octet-stream')
@@ -20,19 +25,17 @@ class TestServer < MiniTest::Test
 
   def test_supported_file_types
     html = @server.content_type('a.html')
-    assert_equal(html, 'text/html')
-
     txt  = @server.content_type('b.txt')
-    assert_equal(txt, 'text/plain')
-
     png  = @server.content_type('c.png')
-    assert_equal(png, 'image/png')
-
     jpg  = @server.content_type('d.jpg')
+
+    assert_equal(html, 'text/html')
+    assert_equal(txt, 'text/plain')
+    assert_equal(png, 'image/png')
     assert_equal(jpg, 'image/jpeg')
   end
 
-  def test_header
+  def test_200_header
     code   = 200
     type   = Server::DEFAULT_CONTENT_TYPE
     length = 10
@@ -43,9 +46,16 @@ class TestServer < MiniTest::Test
                          "Connection: close\r\n")
   end
 
-  def test_status_message
-    assert_equal(Server::STATUS_MESSAGE[200], 'OK')
-    assert_equal(Server::STATUS_MESSAGE[404], 'Not Found')
+  def test_404_header
+    code   = 404
+    type   = CONTENT_TYPES['txt']
+    length = 10
+    header = @server.build_header(code, type, length)
+    assert_equal(header, "HTTP/1.1 404 Not Found\r\n" +
+                         "Content-Type: text/plain\r\n" +
+                         "Content-Length: 10\r\n" +
+                         "Connection: close\r\n")
   end
+
 
 end
