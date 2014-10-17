@@ -3,7 +3,7 @@ require 'uri'
 
 class Server
 
-  attr_reader :host, :port, :client
+  attr_reader :host, :port
 
   ROOT_URI = './public'
 
@@ -19,7 +19,6 @@ class Server
   def initialize(host, port=2000)
     @host  = host
     @port  = port
-    @client = tcp_server.accept
   end
 
   def content_type(path)

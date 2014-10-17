@@ -52,4 +52,5 @@ class TestServer < MiniTest::Test
     message  = @server.status_message(200)
     assert_equal(message, 'OK')
   end
+
 end
