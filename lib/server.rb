@@ -4,7 +4,7 @@ require 'gserver'
 
 class Server < GServer
 
-  ROOT_URI = './public'
+  ROOT = './public'
 
   CONTENT_TYPES = {'html' => 'text/html',
                    'txt'  => 'text/plain',
@@ -29,7 +29,7 @@ class Server < GServer
     request_uri  = line.split(' ')[1]
     path         = URI.unescape(URI(request_uri).path)
 
-    File.join(ROOT_URI, path)
+    File.join(ROOT, path)
   end
 
   def serve(io)

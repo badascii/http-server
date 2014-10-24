@@ -42,7 +42,7 @@ class TestServer < MiniTest::Test
   end
 
   def test_valid_file
-    path = './public/index.html'
+    path = '/Users/jordan/Projects/http-server/public/index.html'
     assert_equal(true, @server.valid_file?(path))
   end
 
