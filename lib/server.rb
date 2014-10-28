@@ -32,9 +32,6 @@ class Server < GServer
     end
   end
 
-  def serve_index(path)
-  end
-
   def content_type(path)
     ext = File.extname(path).split('.').last
     CONTENT_TYPES.fetch(ext, DEFAULT_CONTENT_TYPE)
