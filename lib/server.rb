@@ -24,6 +24,7 @@ class Server < GServer
     loop do
       line = client.readline
       path = requested_file(line)
+      path = File.join(path, 'index.html') if File.directory?(path)
 
       puts line
       puts "Got request for: #{path}"
