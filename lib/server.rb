@@ -32,14 +32,14 @@ class Server < GServer
     File.join(ROOT, path)
   end
 
-  def serve(io)
+  def serve(client)
     loop do
-      line = io.readline
+      line = client.readline
       path = requested_file(line)
 
       puts line
       puts "Got request for: #{path}"
-      validate_request(path, io)
+      validate_request(path, client)
     end
   end
 
