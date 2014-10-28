@@ -20,6 +20,20 @@ class Server < GServer
     super(port, *args)
   end
 
+  def serve(client)
+    loop do
+      line = client.readline
+      path = requested_file(line)
+
+      puts line
+      puts "Got request for: #{path}"
+      send_response(path, client)
+    end
+  end
+
+  def serve_index(path)
+  end
+
   def content_type(path)
     ext = File.extname(path).split('.').last
     CONTENT_TYPES.fetch(ext, DEFAULT_CONTENT_TYPE)
@@ -32,18 +46,7 @@ class Server < GServer
     File.join(ROOT, path)
   end
 
-  def serve(client)
-    loop do
-      line = client.readline
-      path = requested_file(line)
-
-      puts line
-      puts "Got request for: #{path}"
-      validate_request(path, client)
-    end
-  end
-
-  def validate_request(path, client)
+  def send_response(path, client)
     if valid_file?(path)
       serve_file(path, client)
     else
