@@ -1,6 +1,8 @@
-http-server
-===========
+Multithreaded HTTP server in Ruby
+--------------
 
-An HTTP server in Ruby using only raw socket and thread classes
+* Start using the command 'bin/start'
 
-Uses Ruby 2.1
+* Implements GServer to host files over multiple connections
+
+* Uses Ruby 2.1
